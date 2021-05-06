@@ -1,13 +1,16 @@
 package client_side.cliente;
 
+import client_side.UI.InterfaceCliente;
 import client_side.conexao.Connection;
 
 import java.net.Socket;
+import java.util.Scanner;
 
 public class Cliente {
 
     static Socket socket;
     static Connection connection;
+    static Scanner sc = new Scanner(System.in);
 
     public Cliente(){
         try{
@@ -20,12 +23,34 @@ public class Cliente {
 
     public static void main (String[]args){
         new Cliente();
-        String txt = "Troca de mensagens ok";
+        boolean fimJogo = false;
 
-        connection.send(socket, txt);
+        //envia o nome do jogador1
+        System.out.print("Digite seu nome:" );
+        String nome = sc.nextLine();
+        connection.send(socket, nome.trim());
 
-        String resp = connection.recive(socket);
-        System.out.println(resp.trim());
+        while(!fimJogo) {
 
+            //envia jogada
+            int jogada = InterfaceCliente.rodada(sc);
+            connection.send(socket, ("" + jogada).trim());
+
+            String [] jogadas = connection.recive(socket).split("/");
+            InterfaceCliente.jogadas(jogadas[0],jogadas[1]);
+
+            System.out.println();
+            String vencedor = connection.recive(socket);
+            System.out.println(vencedor.trim());
+
+            if(connection.recive(socket).trim().equals("fimDeJogo")){
+                fimJogo = true;
+            }
+
+            System.out.println("\nPLACAR FINAL");
+            System.out.println(connection.recive(socket));
+
+
+        }
     }
 }

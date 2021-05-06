@@ -1,4 +1,4 @@
-package server_side.UI;
+package client_side.UI;
 
 import server_side.entidades.Jogador;
 import server_side.entidades.Rodada;
@@ -18,11 +18,9 @@ public class InterfaceCliente {
         return jogada;
     }
 
-    public static String jogadas(Jogador jog1, Jogador jog2){
-        return jog1.getJogada().toString() + "/" + jog2.getJogada().toString();
+    public static void jogadas(String jog1, String jog2){
+        System.out.println("Jogada: " + jog1);
+        System.out.println("Jogada adv: " + jog2);
     }
 
-    public static String vitoriaJogador(Rodada novaRodada){
-        return "Vitoria de: " + novaRodada.getJogadorVencedor().getNome();
-    }
 }
