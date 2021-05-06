@@ -1,7 +1,5 @@
 package server_side.entidades;
 
-import java.util.ArrayList;
-
 public class Rodada {
 
     private Jogador jogador1;
