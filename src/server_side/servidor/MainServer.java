@@ -2,6 +2,7 @@ package server_side.servidor;
 
 import client_side.conexao.Connection;
 import jdk.swing.interop.SwingInterOpUtils;
+import server_side.UI.InterfaceCliente;
 import server_side.entidades.Jogada;
 import server_side.entidades.Jogador;
 import server_side.entidades.Jogo;
@@ -61,38 +62,36 @@ public class MainServer {
                 System.out.print("Digite seu nome: ");
                 String nome = sc.nextLine();
 
-                Jogador jog1 = new Jogador(nome);
-                Jogador jog2 = new Jogador("computer");
+                Jogador jog1 = new Jogador(nome);               //denominacao do jogador1
+                Jogador jog2 = new Jogador("computer");   //denominacao do jogador2
 
+                //inicio do jogo
                 Jogo jogo = new Jogo(jog1,jog2);
 
+                //rodadas
                 while (!jogo.isFimDeJogo()){
-                    System.out.println("\n-NOVA RODADA-");
-                    Rodada novaRodada = new Rodada(jog1, jog2);
-                    System.out.println("Digite uma jogada");
-                    System.out.println("(1)Pedra");
-                    System.out.println("(2)Papel");
-                    System.out.println("(3)Tesoura");
-                    System.out.print("> ");
-                    int jogada = sc.nextInt();
+                    Rodada novaRodada = new Rodada(jog1,jog2);
 
+                    int jogada = InterfaceCliente.rodada(sc);
                     jog1.fazJogada(Jogada.determinaJogada(jogada -1));
-                    System.out.println("Jogada: " + jog1.getJogada().toString());
                     jog2.fazJogada(Jogada.determinaJogada(computadorJoga()));
-                    System.out.println("Jogada adv: " + jog2.getJogada().toString());
+
+                    InterfaceCliente.jogadas(jog1,jog2);
 
                     novaRodada.determinaVitoria();
-
+                    //caso tenha um vencedor na rodada
                     if(novaRodada.getJogadorVencedor() != null){
-                        System.out.println("Vitoria de: " + novaRodada.getJogadorVencedor().getNome());
-                        jogo.addPonto(novaRodada);
+                        InterfaceCliente.vitoriaJogador(novaRodada); //print vencedor da rodada
+                        jogo.addPonto(novaRodada); //add ponto ao jogo
                     }
+                    //caso de empate a rodada
                     else{
-                        System.out.println("Empate");
+                        System.out.println("-Empate-");
                     }
 
-                    jogo.daterminaFimDeJogo();
+                    jogo.daterminaFimDeJogo(); //determina melhor de 3
                 }
+                //fim do jogo
 
                 System.out.println("\n-PLACAR FINAL-");
                 System.out.println(jogo);
