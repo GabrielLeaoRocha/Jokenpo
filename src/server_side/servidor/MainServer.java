@@ -1,6 +1,7 @@
 package server_side.servidor;
 
 import client_side.conexao.Connection;
+import server_side.entidades.Jogada;
 
 import java.io.IOException;
 import java.net.ServerSocket;
