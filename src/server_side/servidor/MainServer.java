@@ -50,9 +50,9 @@ public class MainServer {
     public static void main(String[]args){
 
         Scanner sc = new Scanner(System.in);
-
         new MainServer();
 
+        //looping infinito para manter server vivo
         for(;;){
             if(accept()){
                 String nome = connection.recive(clientSocket).trim(); //clientSocket ja vinculado ao socket de conexao
@@ -81,22 +81,26 @@ public class MainServer {
                     if(rodada.getJogadorVencedor() != null){
                         connection.send(clientSocket,InterfaceCliente.vitoriaJogador(rodada));
                         jogo.addPonto(rodada); //add ponto ao jogo
+                        jogo.addRodada();
                     }
                     //caso de empate a rodada
                     else{
                         connection.send(clientSocket,"-Empate-");
                     }
 
+                    //nao permite que os dois sends seguidos do servidor se concatenem no recive do cliente
+                    connection.recive(clientSocket);
+
                     jogo.daterminaFimDeJogo(); //determina melhor de 3
                     if(jogo.isFimDeJogo()){
                         connection.send(clientSocket,"fimDeJogo");
                     }
                     else{
-                        connection.send(clientSocket,"jogoContinua");
+                        connection.send(clientSocket," ");
                     }
                 }
                 //fim do jogo
-
+                connection.send(clientSocket, jogo.toString());
             }
         }
     }

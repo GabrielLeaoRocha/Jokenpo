@@ -36,21 +36,23 @@ public class Cliente {
             int jogada = InterfaceCliente.rodada(sc);
             connection.send(socket, ("" + jogada).trim());
 
+            //recebe mensagem das jogadas de cada jogador e divide um dois arrays
             String [] jogadas = connection.recive(socket).split("/");
-            InterfaceCliente.jogadas(jogadas[0],jogadas[1]);
+            InterfaceCliente.jogadas(jogadas[0].trim(),jogadas[1].trim());
 
             System.out.println();
             String vencedor = connection.recive(socket);
             System.out.println(vencedor.trim());
 
+            connection.send(socket, "ok");
+
             if(connection.recive(socket).trim().equals("fimDeJogo")){
                 fimJogo = true;
             }
 
-            System.out.println("\nPLACAR FINAL");
-            System.out.println(connection.recive(socket));
-
-
         }
+
+        System.out.println("\nPLACAR FINAL");
+        System.out.println(connection.recive(socket).trim());
     }
 }

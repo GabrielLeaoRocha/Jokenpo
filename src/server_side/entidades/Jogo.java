@@ -88,7 +88,20 @@ public class Jogo {
         }
     }
 
-    public void daterminaFimDeJogo(){
+    public void addRodada(){
+        this.rodadas++;
+    }
+
+    public void daterminaFimDeJogo(){ //melhor de 3
+
+        //caso os dois jogadores empatem em 2 pontos, o jogo se extende para mais uma jogada(4)
+        if(this.placarJogador1 ==2 && this.placarJogador2 ==2){
+            if (rodadas > 4){
+                this.fimDeJogo = true;
+            }
+        }
+
+        //se o jogo passar de 3 rodadas pontudas, e nao cair na validacao anterior, ele acaba
         if(rodadas > 3){
             this.fimDeJogo = true;
             if(this.placarJogador1 > this.placarJogador2){

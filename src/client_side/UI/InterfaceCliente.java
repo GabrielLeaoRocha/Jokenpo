@@ -8,7 +8,8 @@ import java.util.Scanner;
 public class InterfaceCliente {
 
     public static int rodada(Scanner sc){
-        System.out.println("\n-NOVA RODADA-");
+        System.out.println("-----------------");
+        System.out.println("-NOVA RODADA-");
         System.out.println("Digite uma jogada");
         System.out.println("(1)Pedra");
         System.out.println("(2)Papel");

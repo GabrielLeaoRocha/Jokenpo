@@ -24,7 +24,7 @@ public class Connection {
     public static String recive (Socket socket){
         String txt = "";
         int qntdBytes;
-        byte [] msgBytes = new byte[22];
+        byte [] msgBytes = new byte[100];
         InputStream in;
         try{
             in = socket.getInputStream();
