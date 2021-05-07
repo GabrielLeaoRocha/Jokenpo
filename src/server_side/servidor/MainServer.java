@@ -55,7 +55,7 @@ public class MainServer {
 
         for(;;){
             if(accept()){
-                String nome = connection.recive(clientSocket); //clientSocket ja vinculado ao socket de conexao
+                String nome = connection.recive(clientSocket).trim(); //clientSocket ja vinculado ao socket de conexao
 
                 Jogador jog1 = new Jogador(nome);               //denominacao do jogador1
                 Jogador jog2 = new Jogador("computer");   //denominacao do jogador2
@@ -68,7 +68,7 @@ public class MainServer {
                     Rodada rodada = new Rodada(jog1,jog2);
 
                     //recebe e realiza a jogada do usuario
-                    int jogada = Integer.parseInt(connection.recive(clientSocket));
+                    int jogada = Integer.parseInt(connection.recive(clientSocket).trim());
                     jog1.fazJogada(Jogada.determinaJogada(jogada -1));
                     jog2.fazJogada(Jogada.determinaJogada(computadorJoga()));
 
