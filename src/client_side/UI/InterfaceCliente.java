@@ -24,4 +24,10 @@ public class InterfaceCliente {
         System.out.println("Jogada adv: " + jog2);
     }
 
+    public static String determinaNome(Scanner sc){
+        System.out.print("Digite seu nome:" );
+        String nome = sc.nextLine();
+        return nome;
+    }
+
 }
