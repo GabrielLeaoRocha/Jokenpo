@@ -24,33 +24,62 @@ public class Application {
     public static void application (){
         new Application();
         boolean fimJogo = false;
+        int modoJogo = 0;
+        int jogada = 0;
 
         //envia o nome do jogador1
         connection.send(socket, InterfaceCliente.determinaNome(sc).trim());
 
-        while(!fimJogo) {
-
-            //envia jogada
-            int jogada = InterfaceCliente.rodada(sc);
-            connection.send(socket, ("" + jogada).trim());
-
-            //recebe mensagem das jogadas de cada jogador e divide um dois arrays
-            String [] jogadas = connection.recive(socket).split("/");
-            InterfaceCliente.jogadas(jogadas[0].trim(),jogadas[1].trim());
-
-            System.out.println();
-            String vencedor = connection.recive(socket);
-            System.out.println(vencedor.trim());
-
-            connection.send(socket, "ok");
-
-            if(connection.recive(socket).trim().equals("fimDeJogo")){
-                fimJogo = true;
-            }
-
+        //valida e determina o modo de jogo
+        boolean modoJogoOK = false;
+        while(!modoJogoOK) {
+            modoJogo = InterfaceCliente.determinaModoJogo(sc);
+            if (modoJogo > 0 || modoJogo <= 2) modoJogoOK = true;
+            else System.err.println("OPCAO INVALIDA");
         }
 
-        System.out.println("\nPLACAR FINAL");
-        System.out.println(connection.recive(socket).trim());
+        switch (modoJogo) {
+
+            //modo VScomputador
+            case 1:
+                while (!fimJogo) {
+
+                    //recebe e valida jogada
+                    boolean jogadaOK = false;
+                    while (!jogadaOK) {
+                        jogada = InterfaceCliente.rodada(sc);
+                        if(jogada > 0 || jogada <= 3) jogadaOK = true;
+                        else System.err.println("OPCAO INVALIDA");
+                    }
+
+                    //envia jogada
+                    connection.send(socket, ("" + jogada).trim());
+
+                    //recebe mensagem das jogadas de cada jogador e divide um dois arrays
+                    String[] jogadas = connection.recive(socket).split("/");
+                    InterfaceCliente.jogadas(jogadas[0].trim(), jogadas[1].trim());
+
+                    System.out.println();
+                    String vencedor = connection.recive(socket);
+                    System.out.println(vencedor.trim());
+
+                    connection.send(socket, "ok");
+
+                    if (connection.recive(socket).trim().equals("fimDeJogo")) {
+                        fimJogo = true;
+                    }
+
+                }
+                System.out.println("\nPLACAR FINAL");
+                System.out.println(connection.recive(socket).trim());
+                break;
+
+            case 2:
+                System.out.println("Contruir modo PvP");
+                break;
+
+            default:
+                System.err.println("Opcao não existente");
+        }
     }
 }

@@ -6,15 +6,15 @@ import server_side.entidades.Jogada;
 import server_side.entidades.Jogador;
 import server_side.entidades.Jogo;
 import server_side.entidades.Rodada;
-import server_side.servidor.MainServer;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Application {
+public class Application extends javax.swing.JFrame {
     static ServerSocket socket;
     static Socket clientSocket;
     static Connection connection;
@@ -51,6 +51,16 @@ public class Application {
 
         Scanner sc = new Scanner(System.in);
         new Application();
+
+        //inicio de um front (terminar)
+        JFrame frame01 = new JFrame("Jokenpo");
+        JPanel panel01 = new JPanel();
+        JButton envianome = new JButton("enviar nome");
+
+        panel01.add(envianome);
+        frame01.add(panel01);
+        frame01.setSize(400,500);
+        frame01.setVisible(true);
 
         //looping infinito para manter server vivo
         for(;;){
