@@ -23,6 +23,6 @@ public class InterfaceCliente {
     }
 
     public static String vitoriaJogador(Rodada novaRodada){
-        return "Vitoria de: " + novaRodada.getJogadorVencedor().getNome().trim();
+        return "Vitoria de: > " + novaRodada.getJogadorVencedor().getNome().trim() + " <";
     }
 }

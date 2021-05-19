@@ -3,6 +3,7 @@ package client_side.application;
 import client_side.UI.InterfaceCliente;
 import client_side.conexao.Connection;
 
+import javax.swing.*;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -27,6 +28,16 @@ public class Application {
         int modoJogo = 0;
         int jogada = 0;
 
+        //inicio de um front (terminar)
+        JFrame frame01 = new JFrame("Jokenpo");
+        JPanel panel01 = new JPanel();
+        JButton envianome = new JButton("enviar nome");
+
+        panel01.add(envianome);
+        frame01.add(panel01);
+        frame01.setSize(400,500);
+        frame01.setVisible(true);
+
         //envia o nome do jogador1
         connection.send(socket, InterfaceCliente.determinaNome(sc).trim());
 
@@ -42,6 +53,7 @@ public class Application {
 
             //modo VScomputador
             case 1:
+                connection.send(socket, "1");
                 while (!fimJogo) {
 
                     //recebe e valida jogada
@@ -75,6 +87,7 @@ public class Application {
                 break;
 
             case 2:
+                connection.send(socket, "2");
                 System.out.println("Contruir modo PvP");
                 break;
 
