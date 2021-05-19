@@ -110,13 +110,36 @@ public class Application extends javax.swing.JFrame {
 
     }
 
-    public static void multiPlayer(Socket clientSocket) {
+    //metodo de jogo VS jogador
+    public static void multiPlayer() {
         System.err.println("-Novo jogo multiplayer iniciado-");//notificacao no servidor
+
+        Sala sala1 = sala;
+
+    }
+
+    public static void formaSala (Socket clientSocket, Jogador jog){
+
+        //caso não tenha sala criada
         if(sala == null){
             sala = new Sala();
             sala.setClientSocket01(clientSocket);
-        }
+            sala.setJogador01(jog);
 
+            //prende o usuario ate que outro usuario entre na sala
+            boolean salaFormada = false;
+            while(!salaFormada){
+                if(sala.getClientSocket02() != null){
+                    salaFormada = true;
+                }
+                break;
+            }
+
+        //caso tenha sala criada com apenas um jogador
+        } else {
+            sala.setClientSocket02(clientSocket);
+            sala.setJogador02(jog);
+        }
     }
 
     //Determina o modo de jogo e chama o metodo de jogo correspondente
@@ -130,7 +153,8 @@ public class Application extends javax.swing.JFrame {
                 singlePlayer(clientSocket, jog);
                 break;
             case "2":
-                multiPlayer(clientSocket);
+                formaSala(clientSocket, jog);
+                multiPlayer();
                 break;
             default:
                 System.err.println("Opcao invalida");
