@@ -88,7 +88,45 @@ public class Application {
 
             case 2:
                 connection.send(socket, "2");
-                System.out.println("Contruir modo PvP");
+
+                //cliente fica parado aguardando a sala multiplayer ser criada e o feedback do servidor
+                System.out.println("Buscando oponente...");
+                String resp = connection.recive(socket);
+                if(resp.trim().equals("multiplayer")){
+                    System.out.println("Oponente achado!");
+
+                    while (!fimJogo) {
+
+                        //recebe e valida jogada
+                        boolean jogadaOK = false;
+                        while (!jogadaOK) {
+                            jogada = InterfaceCliente.rodada(sc);
+                            if(jogada > 0 || jogada <= 3) jogadaOK = true;
+                            else System.err.println("OPCAO INVALIDA");
+                        }
+
+                        //envia jogada
+                        connection.send(socket, ("" + jogada).trim());
+
+                        //recebe mensagem das jogadas de cada jogador e divide um dois arrays
+                        String[] jogadas = connection.recive(socket).split("/");
+                        InterfaceCliente.jogadas(jogadas[0].trim(), jogadas[1].trim());
+
+                        System.out.println();
+                        String vencedor = connection.recive(socket);
+                        System.out.println(vencedor.trim());
+
+                        connection.send(socket, "ok");
+
+                        if (connection.recive(socket).trim().equals("fimDeJogo")) {
+                            fimJogo = true;
+                        }
+
+                    }
+                    System.out.println("\nPLACAR FINAL");
+                    System.out.println(connection.recive(socket).trim());
+                    break;
+                }
                 break;
 
             default:
