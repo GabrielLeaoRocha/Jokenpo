@@ -5,8 +5,6 @@ import client_side.conexao.Connection;
 
 import javax.swing.*;
 
-import org.graalvm.compiler.lir.CompositeValue.Component;
-
 import java.awt.Dimension;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -160,13 +158,15 @@ public class Application {
 
                         //envia jogada
                         connection.send(socket, ("" + jogada).trim());
-
+                        String jogador2 = connection.recive(socket);
+                        System.out.println(jogador2);
                         //recebe mensagem das jogadas de cada jogador e divide um dois arrays
-                        String[] jogadas = connection.recive(socket).split("/");
-                        System.out.println(jogadas.length + " " + jogadas[0] + "/" + jogadas[1]);
-                        InterfaceCliente.jogadas(jogadas[0].trim(), jogadas[1].trim());
+                        // String[] jogadas = connection.recive(socket).split("/");
+                        // System.out.println(jogadas.length + " " + jogadas[0] + "/" ); //+ jogadas[1]
+                        if(("" + jogada).trim().equals("1")) InterfaceCliente.jogadas("Pedra", jogador2);
+                        if(("" + jogada).trim().equals("2")) InterfaceCliente.jogadas("Papel", jogador2);
+                        if(("" + jogada).trim().equals("3")) InterfaceCliente.jogadas("Tesoura", jogador2);
 
-                        System.out.println();
                         String vencedor = connection.recive(socket);
                         System.out.println(vencedor.trim());
 
