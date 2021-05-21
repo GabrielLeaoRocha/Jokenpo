@@ -4,7 +4,13 @@ import client_side.UI.InterfaceCliente;
 import client_side.conexao.Connection;
 
 import javax.swing.*;
+
+import org.graalvm.compiler.lir.CompositeValue.Component;
+
+import java.awt.Dimension;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Application {
@@ -31,8 +37,55 @@ public class Application {
         //inicio de um front (terminar)
         JFrame frame01 = new JFrame("Jokenpo");
         JPanel panel01 = new JPanel();
+        JTextField nome = new JTextField();
+        nome.setPreferredSize( new Dimension( 100, 24 ) );
+        JLabel labelNome = new JLabel("Qual o seu nome: ");
         JButton envianome = new JButton("enviar nome");
+        envianome.addActionListener(e -> {
+            String nomeJogador = nome.getText();
+            panel01.remove(labelNome);
+            frame01.add(panel01);
+            frame01.setVisible(true);
+            
+            nome.setVisible(false);
+            panel01.remove(envianome);
+            
+            frame01.add(panel01);
+            frame01.setVisible(true);
+            nome.setVisible(false);
 
+            JLabel jog = new JLabel("Olá "+nomeJogador);
+            jog.setPreferredSize( new Dimension( 300, 24 ) );
+            jog.setAlignmentX(500f);
+            panel01.add(jog);
+            frame01.add(panel01);
+            frame01.setVisible(true);
+
+            JRadioButton pc = new JRadioButton("SinglePlayer");
+            JRadioButton multi = new JRadioButton("MultiPlayer");
+            ButtonGroup radio = new ButtonGroup();
+            radio.add(pc);
+            radio.add(multi);
+            List<JRadioButton> listaRadio = new ArrayList<>();
+            listaRadio.add(pc);
+            listaRadio.add(multi);
+            
+            JButton botao = new JButton("Escolher");
+            botao.addActionListener(w -> {
+                System.out.println(pc);
+                System.out.println(multi);
+                System.out.println("escolhido ");
+            });
+            panel01.add(pc);
+            panel01.add(multi);
+            panel01.add(botao);
+            frame01.add(panel01);
+            frame01.setVisible(true);
+            // frame01.add(panel01);
+        });
+
+        panel01.add(labelNome);
+        panel01.add(nome);
         panel01.add(envianome);
         frame01.add(panel01);
         frame01.setSize(400,500);
