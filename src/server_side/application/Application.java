@@ -134,7 +134,7 @@ public class Application extends javax.swing.JFrame {
             int jogada1 = Integer.parseInt(connection.recive(socket1).trim());
             int jogada2 = Integer.parseInt(connection.recive(socket2).trim());
             jog1.fazJogada(Jogada.determinaJogada(jogada1 - 1));
-            jog1.fazJogada(Jogada.determinaJogada(jogada2 - 1));
+            jog2.fazJogada(Jogada.determinaJogada(jogada2 - 1));
 
             //envia string com jogadas de cada jogador
             connection.send(clientSocket, InterfaceCliente.jogadas(jog1, jog2));

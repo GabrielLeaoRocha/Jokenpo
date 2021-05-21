@@ -110,6 +110,7 @@ public class Application {
 
                         //recebe mensagem das jogadas de cada jogador e divide um dois arrays
                         String[] jogadas = connection.recive(socket).split("/");
+                        System.out.println(jogadas.length + " " + jogadas[0] + "/" + jogadas[1]);
                         InterfaceCliente.jogadas(jogadas[0].trim(), jogadas[1].trim());
 
                         System.out.println();
