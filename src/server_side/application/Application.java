@@ -118,7 +118,7 @@ public class Application extends javax.swing.JFrame {
         Jogador jog2 = sala1.getJogador02();
         Socket socket1 = sala.getClientSocket01();
         Socket socket2 = sala.getClientSocket02();
-
+        
         System.err.println("-Novo jogo multiplayer iniciado-");//notificacao no servidor
 
         //inicio do jogo
@@ -137,7 +137,9 @@ public class Application extends javax.swing.JFrame {
             jog2.fazJogada(Jogada.determinaJogada(jogada2 - 1));
 
             //envia string com jogadas de cada jogador
-            connection.send(clientSocket, InterfaceCliente.jogadas(jog1, jog2));
+            // connection.send(clientSocket, InterfaceCliente.jogadas(jog1, jog2));
+            connection.send(socket1, InterfaceCliente.jogadas(jog1, jog2));
+            connection.send(socket2, InterfaceCliente.jogadas(jog1, jog2));
 
             rodada.determinaVitoria();
 

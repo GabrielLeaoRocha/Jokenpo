@@ -159,13 +159,12 @@ public class Application {
                         //envia jogada
                         connection.send(socket, ("" + jogada).trim());
                         String jogador2 = connection.recive(socket);
-                        System.out.println(jogador2);
+
                         //recebe mensagem das jogadas de cada jogador e divide um dois arrays
                         // String[] jogadas = connection.recive(socket).split("/");
-                        // System.out.println(jogadas.length + " " + jogadas[0] + "/" ); //+ jogadas[1]
-                        if(("" + jogada).trim().equals("1")) InterfaceCliente.jogadas("Pedra", jogador2);
-                        if(("" + jogada).trim().equals("2")) InterfaceCliente.jogadas("Papel", jogador2);
-                        if(("" + jogada).trim().equals("3")) InterfaceCliente.jogadas("Tesoura", jogador2);
+                        String[] jogadasJ = jogador2.split("/");
+                        //System.out.println(jogadasJ.length + " " + jogadasJ[0] + "/" + jogadasJ[1]); //+ jogadas[1]
+                        InterfaceCliente.jogadas(jogadasJ[0], jogadasJ[1]); // adicionar logica pra inverter print jogadas
 
                         String vencedor = connection.recive(socket);
                         System.out.println(vencedor.trim());
