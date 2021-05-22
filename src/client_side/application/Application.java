@@ -64,22 +64,26 @@ public class Application {
             ButtonGroup radio = new ButtonGroup();
             radio.add(pc);
             radio.add(multi);
+            
             List<JRadioButton> listaRadio = new ArrayList<>();
             listaRadio.add(pc);
             listaRadio.add(multi);
             
             JButton botao = new JButton("Escolher");
             botao.addActionListener(w -> {
-                System.out.println(pc);
-                System.out.println(multi);
-                System.out.println("escolhido ");
+                JLabel status = new JLabel();
+                status.setPreferredSize( new Dimension( 300, 24 ) );
+                if(pc.isSelected()) status.setText("pc");
+                if(multi.isSelected()) status.setText("multiplayer");
+                panel01.add(status);
+                frame01.add(panel01);
+                frame01.setVisible(true);
             });
             panel01.add(pc);
             panel01.add(multi);
             panel01.add(botao);
             frame01.add(panel01);
             frame01.setVisible(true);
-            // frame01.add(panel01);
         });
 
         panel01.add(labelNome);
