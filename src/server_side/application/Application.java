@@ -76,7 +76,7 @@ public class Application extends javax.swing.JFrame {
             jog2.fazJogada(Jogada.determinaJogada(computadorJoga())); //jogada do computador
 
             //envia string com jogadas de cada jogador
-            connection.send(clientSocket, InterfaceCliente.jogadas(jog1, jog2));
+            connection.send(clientSocket, InterfaceCliente.jogadas1(jog1, jog2));
 
             rodada.determinaVitoria();
 
@@ -138,8 +138,8 @@ public class Application extends javax.swing.JFrame {
 
             //envia string com jogadas de cada jogador
             // connection.send(clientSocket, InterfaceCliente.jogadas(jog1, jog2));
-            connection.send(socket1, InterfaceCliente.jogadas(jog1, jog2));
-            connection.send(socket2, InterfaceCliente.jogadas(jog1, jog2));
+            connection.send(socket1, InterfaceCliente.jogadas1(jog1, jog2));
+            connection.send(socket2, InterfaceCliente.jogadas2(jog1, jog2));
 
             rodada.determinaVitoria();
 

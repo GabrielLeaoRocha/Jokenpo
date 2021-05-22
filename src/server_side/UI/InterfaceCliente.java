@@ -18,8 +18,11 @@ public class InterfaceCliente {
         return jogada;
     }
 
-    public static String jogadas(Jogador jog1, Jogador jog2){
+    public static String jogadas1(Jogador jog1, Jogador jog2){
         return jog1.getJogada().toString() + "/" + jog2.getJogada().toString();
+    }
+    public static String jogadas2(Jogador jog1, Jogador jog2){
+        return jog2.getJogada().toString() + "/" + jog1.getJogada().toString();
     }
 
     public static String vitoriaJogador(Rodada novaRodada){

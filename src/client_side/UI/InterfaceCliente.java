@@ -25,8 +25,8 @@ public class InterfaceCliente {
     }
 
     public static void jogadas(String jog1, String jog2){
-        System.out.println("Jogada: " + jog1);
-        System.out.println("Jogada adv: " + jog2);
+        System.out.println("Jogada: " + jog1.trim());
+        System.out.println("Jogada adv: " + jog2.trim());
     }
 
     public static String determinaNome(Scanner sc){
@@ -48,3 +48,4 @@ public class InterfaceCliente {
         }
     }
 }
+
